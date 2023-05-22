@@ -646,6 +646,10 @@ static void decode_glo_str(sdr_ch_t *ch, const uint8_t *syms, int rev)
     for (int i = 0; i < 100; i++) {
         bits[i] = syms[i*2] ^ (uint8_t)rev;
     }
+
+    for (int i = 84; i > 0; i--) {
+      bits[i] ^= bits[i - 1];
+    }
     sdr_pack_bits(bits, 85, 0, data); // GLONASS string (85 bits, packed)
     
     if (test_glostr(data)) {

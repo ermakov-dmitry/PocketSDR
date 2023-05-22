@@ -253,6 +253,8 @@ def add_buff(buff, item):
 
 # pack bits to uint8 ndarray ---------------------------------------------------
 def pack_bits(data, nz=0):
+    for i in range(84, 0, -1):
+        data[i] ^= data[i - 1]
     if nz > 0:
         data = np.hstack([[0] * nz, data])
     N = len(data)
